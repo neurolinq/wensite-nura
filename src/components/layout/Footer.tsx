@@ -94,14 +94,16 @@ export default function Footer({ data }: any) {
             <div className="flex items-center gap-5 mt-4">
               <p className="text-md text-white">Follow</p>
               {data?.socials.map((link: any) => (
-                <Image
-                  src={`${link.icon.url}`}
-                  alt={"social icon"}
-                  width={100}
-                  height={100}
-                  className="w-4 hover:text-[#D4AF84] transition-all duration-300 cursor-pointer wrap-break-words "
-                  key={link.id}
-                />
+                <Link href={link.href} key={link.id}>
+                  <Image
+                    src={`${link.icon.url}`}
+                    alt={"social icon"}
+                    width={100}
+                    height={100}
+                    className="w-4 hover:text-[#D4AF84] transition-all duration-300 cursor-pointer wrap-break-words "
+                    key={link.id}
+                  />
+                </Link>
               ))}
             </div>
           </div>
