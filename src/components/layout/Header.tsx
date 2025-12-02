@@ -29,6 +29,7 @@ export default function Header({ data }: any) {
               height={50}
               // Logo keeps lg sizing preference, but layout structure moves to xl
               className="w-40 h-auto lg:w-40"
+              unoptimized // <--- ADDED THIS PROP
             />
           </Link>
         </motion.div>
