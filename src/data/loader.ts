@@ -56,7 +56,10 @@ export async function getGlobalData() {
   const BASE_URL = getStrapiURL();
   const url = new URL(path, BASE_URL);
   url.search = globalQuery;
-  return await fetchAPI(url.href, { method: "GET" });
+  return await fetchAPI(url.href, {
+    method: "GET",
+    next: { revalidate: 60 }, // Revalidate every 60 seconds
+  });
 }
 
 const homepageQuery = () =>
@@ -121,7 +124,10 @@ export async function getHomepageData() {
   const BASE_URL = getStrapiURL();
   const url = new URL(path, BASE_URL);
   url.search = homepageQuery();
-  return await fetchAPI(url.href, { method: "GET" });
+  return await fetchAPI(url.href, {
+    method: "GET",
+    next: { revalidate: 60 },
+  });
 }
 
 const PageQuery = (slug: string) =>
@@ -263,5 +269,8 @@ export async function getPageData(slug: string) {
   const query = PageQuery(slug);
   const url = `${BASE_URL}/api/pages?${query}`;
   const response = await fetchAPI(url, { method: "GET" });
-  return response;
+  return await fetchAPI(url, {
+    method: "GET",
+    next: { tags: ["strapi-data"] }, // Tag this request
+  });
 }
